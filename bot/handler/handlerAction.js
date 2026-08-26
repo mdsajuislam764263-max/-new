@@ -1,106 +1,208 @@
 const createFuncMessage = global.utils.message;
 const handlerCheckDB = require("./handlerCheckData.js");
 
-const request = require("request")
-const axios = require("axios")
-const fs = require("fs-extra")
+module.exports = (
+  api,
+  threadModel,
+  userModel,
+  dashBoardModel,
+  globalModel,
+  usersData,
+  threadsData,
+  dashBoardData,
+  globalData
+) => {
+  const handlerEvents = require(
+    process.env.NODE_ENV == "development"
+      ? "./handlerEvents.dev.js"
+      : "./handlerEvents.js"
+  )(
+    api,
+    threadModel,
+    userModel,
+    dashBoardModel,
+    globalModel,
+    usersData,
+    threadsData,
+    dashBoardData,
+    globalData
+  );
 
+  return async function (event) {
 
-module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData) => {
-	const handlerEvents = require(process.env.NODE_ENV == 'development' ? "./handlerEvents.dev.js" : "./handlerEvents.js")(api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData);
-
-	return async function (event) {
-		const message = createFuncMessage(api, event);
-
-		await handlerCheckDB(usersData, threadsData, event);
-		const handlerChat = await handlerEvents(event, message);
-		if (!handlerChat)
-			return;
-
-		const { onStart, onChat, onReply, onEvent, handlerEvent, onReaction, typ, presence, read_receipt } = handlerChat;
-
-		switch (event.type) {
-			case "message":
-			case "message_reply":
-			case "message_unsend":
-				onChat();
-				onStart();
-				onReply();
-        if(event.type == "message_unsend"){
-          
-          let resend = await threadsData.get(event.threadID, "settings.reSend");
-		if (resend == true && event.senderID 
-!== api.getCurrentUserID()){
-      let umid = global.reSend[event.threadID].findIndex(e => e.messageID === event.messageID)
-      
-      if(umid>(-1)){
-let nname = await usersData.getName(event.senderID)
-        let attch = []
-if(global.reSend[event.threadID][umid].attachments.length>0){
-  let cn = 0
-  for(var abc of global.reSend[event.threadID][umid].attachments){
-   if(abc.type == "audio"){
-    
-    cn += 1;
-
-   let pts = `scripts/cmds/tmp/${cn}.mp3`
-					let res2 = (await axios.get(abc.url, {
-						responseType: "arraybuffer"
-					})).data;
-			fs.writeFileSync(pts, Buffer.from(res2, "utf-8"))
-    
-  attch.push(fs.createReadStream(pts))} else{
-     attch.push(await global.utils.getStreamFromURL(abc.url))
-  }
-  }
-}
-        
-  api.sendMessage({body: nname + " removed:\n\n" + global.reSend[event.threadID][umid].body,
-mentions:[{id:event.senderID, tag:nname}],
-    attachment:attch
-                  }, event.threadID)
-                   
-
-  
-      }
+    // ==============================
+    // ANTI INBOX PROTECTION
+    // ==============================
+    if (
+      global.GoatBot.config.antiInbox == true &&
+      (
+        event.senderID == event.threadID ||
+        event.userID == event.senderID ||
+        event.isGroup == false
+      ) &&
+      (event.senderID || event.userID || event.isGroup == false)
+    ) {
+      return;
     }
-        }
-				break;
-			case "event":
-				handlerEvent();
-				onEvent();
-				break;
-			case "message_reaction":
-				onReaction();
-        if(event.reaction == "❗"){
-  if(event.userID == "61589591233031"){
-api.removeUserFromGroup(event.senderID, event.threadID, (err) => {
-                if (err) return console.log(err);
-              });
 
-}else{
-    message.send(":)")
-  }
-  }
-        if(event.reaction == "😡"){
-  if(event.senderID == api.getCurrentUserID()){if(event.userID == "61589591233031"){
-    message.unsend(event.messageID)
-}else{
-    message.send(":)")
-  }}
+    const message = createFuncMessage(api, event);
+
+    await handlerCheckDB(usersData, threadsData, event);
+
+    const handlerChat = await handlerEvents(event, message);
+
+    if (!handlerChat) return;
+
+    const {
+      onAnyEvent,
+      onFirstChat,
+      onStart,
+      onChat,
+      onReply,
+      onEvent,
+      handlerEvent,
+      onReaction,
+      typ,
+      presence,
+      read_receipt
+    } = handlerChat;
+
+    onAnyEvent();
+
+    switch (event.type) {
+
+      // ==============================
+      // MESSAGE
+      // ==============================
+      case "message":
+      case "message_reply":
+      case "message_unsend":
+
+        /*
+         * TYPING INDICATOR
+         *
+         * User message পাওয়ার সাথে সাথে
+         * bot "Typing..." দেখাবে।
+         */
+        try {
+          if (event.threadID && api.sendTypingIndicator) {
+            api.sendTypingIndicator(event.threadID, (err) => {
+              if (err) {
+                console.error(
+                  "Typing indicator error:",
+                  err
+                );
+              }
+            });
+          }
+        } catch (err) {
+          console.error(
+            "Typing indicator exception:",
+            err
+          );
         }
-				break;
-			case "typ":
-				typ();
-				break;
-			case "presence":
-				presence();
-				break;
-			case "read_receipt":
-				read_receipt();
-				break;
-			default:
-				break;
-		}
-	};
+
+        // Existing bot system
+        onFirstChat();
+        onChat();
+        onStart();
+        onReply();
+
+        break;
+
+
+      // ==============================
+      // EVENT
+      // ==============================
+      case "event":
+
+        handlerEvent();
+        onEvent();
+
+        break;
+
+
+      // ==============================
+      // MESSAGE REACTION
+      // ==============================
+      case "message_reaction":
+
+        onReaction();
+
+        // React-Unsend System
+        try {
+
+          const cfg =
+            global.GoatBot.config.reactUnsend || {};
+
+          const adminIDs =
+            global.GoatBot.config.adminBot || [];
+
+          const isAdmin =
+            adminIDs.includes(
+              event.userID || event.senderID
+            );
+
+          if (
+            cfg.enable &&
+            cfg.emojis?.includes(event.reaction) &&
+            (!cfg.onlyAdmin || isAdmin)
+          ) {
+
+            await api.unsendMessage(
+              event.messageID
+            );
+
+          }
+
+        } catch (err) {
+
+          console.error(
+            "❌ React-Unsend Error:",
+            err
+          );
+
+        }
+
+        break;
+
+
+      // ==============================
+      // TYPING EVENT
+      // ==============================
+      case "typ":
+
+        typ();
+
+        break;
+
+
+      // ==============================
+      // PRESENCE
+      // ==============================
+      case "presence":
+
+        presence();
+
+        break;
+
+
+      // ==============================
+      // READ RECEIPT
+      // ==============================
+      case "read_receipt":
+
+        read_receipt();
+
+        break;
+
+
+      // ==============================
+      // DEFAULT
+      // ==============================
+      default:
+
+        break;
+    }
+  };
 };
