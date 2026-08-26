@@ -12,15 +12,6 @@
 
 ---
 
- ██████╗░██████╗░███╗░░██╗███████╗████████╗
- ██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝
- ██║░░██║██████╔╝██╔██╗██║█████╗░░░░░██║░░░
- ██║░░██║██╔══██╗██║╚████║██╔══╝░░░░░██║░░░
- ██████╔╝██║░░██║██║░╚███║███████╗░░░██║░░░
- ╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚══════╝░░░╚═╝░░'
-
----
-
 > **Hinata Bot V3** is a free, open-source **Facebook Messenger bot** powered by Node.js 26.x. It supports **AI auto-reply**, **SimSimi integration**, multi-language responses, and is easy to deploy from a mobile phone. Whether you are searching for a **Facebook bot**, **Messenger chatbot**, **auto reply bot**, or **Hinata Bot** — this is the project for you.
 
 ---
@@ -128,7 +119,7 @@ Built with passion by **MahMUD** — a full-stack developer specializing in Face
 Found a bug? Need a custom feature or a private Messenger bot built for you? Reach out directly!
 
 <div align="left">
-  <a href="https://www.facebook.com/mahmudexe" target="_blank">
+  <a href="https://www.facebook.com/share/1DFs4NzkKc/" target="_blank">
     <img src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white" alt="Facebook">
   </a>
   <a href="https://wa.me/8801836298139?text=Hi%20MahMUD%2C%20I%20want%20to%20chat%20with%20you!" target="_blank">
@@ -146,7 +137,7 @@ Found a bug? Need a custom feature or a private Messenger bot built for you? Rea
 
 | Facebook | Youtube | WhatsApp | Portfolio | Gmail |
 | :---: | :---: | :---: | :---: | :---: |
-| <a href="https://www.facebook.com/mahmudexe"><img src="https://raw.githubusercontent.com/ntkhang03/ntkhang03/main/sources/qr-fb.svg" width="200"/></a><p><b><a href="https://www.facebook.com/mahmudexe">MahMUD</a></b></p> | <a href="https://www.youtube.com/@mahmudx7"><img src="https://raw.githubusercontent.com/ntkhang03/ntkhang03/main/sources/qr-ytb.svg" width="200"/></a><p><b><a href="https://www.youtube.com/@mahmudx7">MahMUD</a></b></p> | <a href="https://wa.me/8801836298139"><img src="https://quickchart.io/qr?text=https%3A%2F%2Fwa.me%2F8801836298139&size=200&margin=1&dark=25D366&centerImageUrl=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F100%2Fwhatsapp--v1.png&centerImageSizeRatio=0.28" width="200"/></a><p><b><a href="https://wa.me/8801836298139">MahMUD</a></b></p> | <a href="https://mahmud-exe.onrender.com/"><img src="https://quickchart.io/qr?text=https%3A%2F%2Fmahmud-exe.onrender.com%2F&size=200&margin=1&dark=4285F4&centerImageUrl=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F100%2Fchrome--v1.png&centerImageSizeRatio=0.28" width="200"/></a><p><b><a href="https://mahmud-exe.onrender.com/">MahMUD</a></b></p> | <a href="mailto:mahmudx007@gmail.com"><img src="https://quickchart.io/qr?text=mailto%3Amahmudx007%40gmail.com&size=200&margin=1&dark=D14836&centerImageUrl=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F100%2Fgmail--v1.png&centerImageSizeRatio=0.28" width="200"/></a><p><b><a href="mailto:mahmudx007@gmail.com">MahMUD</a></b></p> |
+| <a href="https://www.facebook.com/share/1DFs4NzkKc/"><img src="https://raw.githubusercontent.com/ntkhang03/ntkhang03/main/sources/qr-fb.svg" width="200"/></a><p><b><a href="https://www.facebook.com/share/1DFs4NzkKc/">MahMUD</a></b></p> | <a href="https://www.youtube.com/@mahmudx7"><img src="https://raw.githubusercontent.com/ntkhang03/ntkhang03/main/sources/qr-ytb.svg" width="200"/></a><p><b><a href="o">MahMUD</a></b></p> | <a href="https://wa.me/8801836298139"><img src="https://quickchart.io/qr?text=https%3A%2F%2Fwa.me%2F8801836298139&size=200&margin=1&dark=25D366&centerImageUrl=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F100%2Fwhatsapp--v1.png&centerImageSizeRatio=0.28" width="200"/></a><p><b><a href="https://wa.me/8801863098227"saju</a></b></p> | <a href="https://mahmud-exe.onrender.com/"><img src="https://quickchart.io/qr?text=https%3A%2F%2Fmahmud-exe.onrender.com%2F&size=200&margin=1&dark=4285F4&centerImageUrl=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F100%2Fchrome--v1.png&centerImageSizeRatio=0.28" width="200"/></a><p><b><a href="https://mahmud-exe.onrender.com/">MahMUD</a></b></p> | <a href="mailto: mdsajuislam764263@gmail.com"><img src="https://quickchart.io/qr?text=mailto%3Amahmudx007%40gmail.com&size=200&margin=1&dark=D14836&centerImageUrl=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F100%2Fgmail--v1.png&centerImageSizeRatio=0.28" width="200"/></a><p><b><a href="mailto:mahmudx007@gmail.com">MahMUD</a></b></p> |
 
 ---
 
