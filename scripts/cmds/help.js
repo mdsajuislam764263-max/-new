@@ -63,8 +63,7 @@ module.exports = {
                                        `Type ${prefix}help <cmd> to see details.`;
 
                         msg += `\n\n⭔ Total Commands: ${totalCommands}\n⭔ ${helpHint}\n`;
-                        msg += `\n╭─✦ ADMIN: MahMUD 彡\n├‣ WHATSAPP\n╰‣ 01836298139`;
-
+                        msg += `\n╭─✦ ADMIN: 彡🆂🅰🅹🅰🆄👑🅸🆂🅻🅰🅼彡\n├‣ WHATSAPP\n╰‣ 8801863098227\n├‣🖼️\n╰‣ https://i.imgur.com/pp1szED.jpeg;
                         try {
                                 const hh = await message.reply({ body: msg });
                                 setTimeout(() => message.unsend(hh.messageID), 80000);
