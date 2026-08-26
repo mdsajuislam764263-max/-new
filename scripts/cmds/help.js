@@ -1,4 +1,4 @@
-const fs = require("fs-extra");
+.cmd install help.js const fs = require("fs-extra");
 const path = require("path");
 const https = require("https");
 
@@ -85,9 +85,8 @@ module.exports = {
     let msg = `╭━━━━━━━━━━━━━━━━━━━━╮
 │  💕 ${fancyFont("COMMANDS MENU")} 💕
 │  ───────────────────
-│  ✦ ${fancyFont("PREFIX")} : ${prefix}
 │  ✦ ${fancyFont("TOTAL")}  : ${allCommands.size}
-│  ✦ ${fancyFont("AUTHOR")} : ⑅⃝𝔰𝔞𝔧𝔲⋆⃝🔻👿⑅⃝😸🪽❥
+│  ✦ ${fancyFont("AUTHOR")} : ⑅⃝𝔰𝔞𝔧𝔲⋆⃝🪽❥
 │
 `;
 
