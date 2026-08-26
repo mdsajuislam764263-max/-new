@@ -1,29 +1,23 @@
-<p align="center">
-  <img src="https://i.imgur.com/Mmo26FF.jpeg" alt="Hinata Bot Banner" width="100%">
-</p>
+<div align="center">
 
-<h1 align="center">
-  <img src="https://i.imgur.com/ZfuZrPc.jpeg" width="28px" alt="icon">
-  Hinata Bot — Facebook Messenger Chatbot by MahMUD
-</h1>
+  <img src="hacker-animation.gif" width="200" height="200" style="border-radius: 50%;">
 
-<p align="center">
-  <b>• Facebook Messenger Bot | Auto Reply Bot | AI Chatbot | Hinata Bot V3</b><br>
-  <i>A powerful, free, open-source Facebook Messenger bot built with Node.js</i>
-</p>
+  <h1>☠️ SAJU // DARKNET_MATRIX ☠️</h1>
 
-<p align="center">
-  <a href="https://nodejs.org/dist/v26.0.0">
-    <img src="https://img.shields.io/badge/Nodejs%20Support-26.x-brightgreen.svg?style=flat-square" alt="Nodejs Support v26">
-  </a>
-  <img alt="Repo Size" src="https://img.shields.io/github/repo-size/mahmudx7/Hinata-Bot-V3.svg?style=flat-square&label=Size">
-  <img alt="Version" src="https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Version&prefix=v&query=%24.version&url=https://github.com/mahmudx7/Hinata-Bot-V3/raw/main/package.json&style=flat-square">
-  <img alt="Visitors" src="https://visitor-badge.laobi.icu/badge?style=flat-square&page_id=mahmudx7/Hinata-Bot-V3">
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-green?style=flat-square&color=brightgreen">
-  <a href="https://mahmud-exe.onrender.com/">
-    <img src="https://img.shields.io/badge/Portfolio-mahmud--exe.onrender.com-blue?style=flat-square&logo=googlechrome&logoColor=white" alt="Portfolio">
-  </a>
-</p>
+  <p>
+    <b>Facebook Messenger Bot • AI Chatbot • Auto Reply • Cyberpunk UI</b>
+  </p>
+
+</div>
+
+---
+
+ ██████╗░██████╗░███╗░░██╗███████╗████████╗
+ ██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝
+ ██║░░██║██████╔╝██╔██╗██║█████╗░░░░░██║░░░
+ ██║░░██║██╔══██╗██║╚████║██╔══╝░░░░░██║░░░
+ ██████╔╝██║░░██║██║░╚███║███████╗░░░██║░░░
+ ╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚══════╝░░░╚═╝░░'
 
 ---
 
