@@ -1,4 +1,4 @@
-.cmd install help.js const fs = require("fs-extra");
+const fs = require("fs-extra");
 const path = require("path");
 const https = require("https");
 
