@@ -45,7 +45,7 @@ module.exports.onStart = async ({ api, event, args, usersData }) => {
 
     try {
         if (!args[0]) {
-            const ran = ["Bolo baby", "I love you", "type !bby hi"];
+            const ran = ["Bolo baby", "I love you", "!bby hi"];
             return api.sendMessage(ran[Math.floor(Math.random() * ran.length)], event.threadID, event.messageID);
         }
 
@@ -55,7 +55,7 @@ module.exports.onStart = async ({ api, event, args, usersData }) => {
             const responses = responsesArr.join(" - ");
             if (!trigger || !responses) return api.sendMessage("❌ | teach [question] - [response1, response2,...]", event.threadID, event.messageID);
             const response = await axios.post(`${await baseApiUrl()}/api/jan/teach`, { trigger, responses, userID: uid });
-            const userName = (await usersData.getName(uid)) || "Unknown User";
+            const userName = (await usersData.getName(uid)) || "💔";
             return api.sendMessage(`✅ Replies added: "${responses}" to "${trigger}"\n• 𝐓𝐞𝐚𝐜𝐡𝐞𝐫: ${userName}\n• 𝐓𝐨𝐭𝐚𝐥: ${response.data.count || 0}`, event.threadID, event.messageID);
         }
 
@@ -106,7 +106,7 @@ module.exports.onStart = async ({ api, event, args, usersData }) => {
             const res = await axios.post(`${await baseApiUrl()}/api/hinata`, { text, style: 3, attachments });
             return res.data.message;
           } catch {
-            return "error baby🥹";
+            return "baby🥹";
            }
         };
 
@@ -137,7 +137,7 @@ module.exports.onReply = async ({ api, event }) => {
             const res = await axios.post(`${await baseApiUrl()}/api/hinata`, { text, style: 3, attachments });
             return res.data.message;
             } catch {
-            return "error baby🥹";
+            return "baby🥹";
             }
         };
         const replyMessage = await getBotResponse(event.body?.toLowerCase() || "meow", event.attachments || []);
@@ -163,7 +163,7 @@ module.exports.onChat = async ({ api, event }) => {
         const attachments = event.attachments || [];
 
         if (event.type !== "message_reply" && mahmud.some(word => message.startsWith(word))) {
-            api.setMessageReaction("🪽", event.messageID, () => { }, true);
+            api.setMessageReaction("🖤", event.messageID, () => { }, true);
             api.sendTypingIndicator(event.threadID, true);
             
             const messageParts = message.trim().split(/\s+/);
@@ -172,7 +172,7 @@ module.exports.onChat = async ({ api, event }) => {
                     const res = await axios.post(`${await baseApiUrl()}/api/hinata`, { text, style: 3, attachments });
                     return res.data.message;
                 } catch {
-                    return "error baby🥹";
+                    return "baby🥹";
                 }
             };
 
@@ -180,7 +180,7 @@ module.exports.onChat = async ({ api, event }) => {
                                 "babu khuda lagse🥺",
                                 "Hop beda😾,Boss বল boss😼",
                                 "আমাকে ডাকলে ,আমি কিন্তূ কিস করে দেবো😘 ",                      
-                                "naw amr boss k message daw 01836298139",
+                                "naw amr boss k message daw 880186309822*",
                                 "গোলাপ ফুল এর জায়গায় আমি দিলাম তোমায় মেসেজ",
                                 "বলো কি বলবা, সবার সামনে বলবা নাকি?🤭🤏",
                                 "𝗜 𝗹𝗼𝘃𝗲 𝘆𝗼𝐮__😘😘",
@@ -192,7 +192,7 @@ module.exports.onChat = async ({ api, event }) => {
                                 "𝙏𝙪𝙢𝙖𝙧 𝙜𝙛 𝙣𝙖𝙞, 𝙩𝙖𝙮 𝙖𝙢𝙠 𝙙𝙖𝙠𝙨𝙤? 😂😂😂",
                                 "আমাকে ডেকো না,আমি ব্যাস্ত আসি🙆🏻‍♀",
                                 "𝗕𝗯𝘆 বললে চাকরি থাকবে না",
-                                "𝗕𝗯𝘆 𝗕𝗯𝘆 না করে আমার বস মানে, MahMUD ,MahMUD ও তো করতে পারো😑?",
+                                "𝗕𝗯𝘆 𝗕𝗯𝘆 না করে আমার বস মানে,saju ,saju  ও তো করতে পারো😑?",
                                 "আমার সোনার বাংলা, তারপরে লাইন কি? 🙈",
                                 "🍺 এই নাও জুস খাও..!𝗕𝗯𝘆 বলতে বলতে হাপায় গেছো না 🥲",
                                 "হটাৎ আমাকে মনে পড়লো 🙄", "𝗕𝗯𝘆 বলে অসম্মান করচ্ছিছ,😰😿",
