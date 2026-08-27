@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const baseApiUrl = async () => {
         const base = await axios.get("https://raw.githubusercontent.com/mahmudx7/HINATA/main/baseApiUrl.json");
-        return base.data.mahmud69;
+        return base.data.saju69;
 };
 
 module.exports = {
@@ -49,33 +49,33 @@ module.exports = {
                         const exactUrlMatch = textInput.match(/^https?:\/\/[^\s]+$/i);
                         if (!exactUrlMatch) return; 
 
-                        const mahmud = exactUrlMatch[0]; 
+                        const saju = exactUrlMatch[0]; 
 
                         if (
-                                mahmud.includes("tiktok.com") ||
-                                mahmud.includes("youtube.com") || 
-                                mahmud.includes("youtu.be") ||
-                                mahmud.includes("twitter.com") || 
-                                mahmud.includes("x.com") ||
-                                mahmud.includes("facebook.com") || 
-                                mahmud.includes("fb.watch") ||
-                                mahmud.includes("instagram.com") ||
-                                mahmud.includes("tumblr.com") ||
-                                mahmud.includes("threads.net") ||
-                                mahmud.includes("spotify.com") ||
-                                mahmud.includes("soundcloud.com") ||
-                                mahmud.includes("snapchat.com") ||
-                                mahmud.includes("reddit.com") ||
-                                mahmud.includes("pinterest.com") || 
-                                mahmud.includes("pin.it") ||
-                                mahmud.includes("linkedin.com") ||
-                                mahmud.includes("kuaishou.com") || 
-                                mahmud.includes("kwai.com") ||
-                                mahmud.includes("douyin.com") ||
-                                mahmud.includes("dailymotion.com") || 
-                                mahmud.includes("dai.ly") ||
-                                mahmud.includes("capcut.com") ||
-                                mahmud.includes("bsky.app")
+                                saju.includes("tiktok.com") ||
+                                saju.includes("youtube.com") || 
+                                saju.includes("youtu.be") ||
+                                saju.includes("twitter.com") || 
+                                saju.includes("x.com") ||
+                                saju.includes("facebook.com") || 
+                                saju.includes("fb.watch") ||
+                                saju.includes("instagram.com") ||
+                                saju.includes("tumblr.com") ||
+                                saju.includes("threads.net") ||
+                                saju.includes("spotify.com") ||
+                                saju.includes("soundcloud.com") ||
+                                saju.includes("snapchat.com") ||
+                                saju.includes("reddit.com") ||
+                                saju.includes("pinterest.com") || 
+                                saju.includes("pin.it") ||
+                                saju.includes("linkedin.com") ||
+                                saju.includes("kuaishou.com") || 
+                                saju.includes("kwai.com") ||
+                                saju.includes("douyin.com") ||
+                                saju.includes("dailymotion.com") || 
+                                saju.includes("dai.ly") ||
+                                saju.includes("capcut.com") ||
+                                saju.includes("bsky.app")
                         ) {
                                 api.setMessageReaction("🐤", event.messageID, (err) => {}, true);
                                 
