@@ -10,7 +10,7 @@ module.exports = {
         config: {
                 name: "autodl",
                 version: "1.7",
-                author: "MahMUD",
+                author: "saju",
                 countDown: 0,
                 role: 0,
                 description: {
@@ -27,11 +27,11 @@ module.exports = {
         langs: {
                 bn: {
                         defaultCaption: "ডাউনলোড করা ভিডিও",
-                        error: "× ভিডিও ডাউনলোড করতে সমস্যা হয়েছে।\n•WhatsApp: 01836298139"
+                        error: "× ভিডিও ডাউনলোড করতে সমস্যা হয়েছে।\n•WhatsApp: 01863098227"
                 },
                 en: {
                         defaultCaption: "Downloaded Video",
-                        error: "× Failed to download video.\n•WhatsApp: 01836298139"
+                        error: "× Failed to download video.\n•WhatsApp: 01863098227"
                 }
         },
 
@@ -77,13 +77,18 @@ module.exports = {
                                 mahmud.includes("capcut.com") ||
                                 mahmud.includes("bsky.app")
                         ) {
-                             api.setMessageReaction("🐤", event.messageID, (err) => {}, true);
+                                api.setMessageReaction("🐤", event.messageID, (err) => {}, true);
                                 
                                 if (!fs.existsSync(__dirname + "/cache")) fs.mkdirSync(__dirname + "/cache");
-                                const path = __dirname + "/cache/mahmud.mp4";
+                                const path = __dirname + "/cache/saju.mp4";
 
                                 const base = await baseApiUrl();
-                                const response = await axios.get(`${base}/api/download?url=${encodeURIComponent(mahmud)}`);
+
+                                // Full HD / 1080p quality request
+                                const response = await axios.get(
+                                        `${base}/api/download?url=${encodeURIComponent(mahmud)}&quality=1080p`
+                                );
+
                                 if (!response.data || !response.data.result) throw new Error("Failed to video URL");
 
                                 const videoUrl = response.data.result;
