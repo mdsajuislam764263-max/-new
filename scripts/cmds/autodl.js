@@ -37,7 +37,7 @@ module.exports = {
 
         onStart: async function () {},
 
-        onChat: async function ({ api, event, getLang }) {
+        onChat: async function ({ api, event }) {
                 let textInput = event.body ? event.body.trim() : "";
 
                 try {
@@ -72,7 +72,7 @@ module.exports = {
                                 mahmud.includes("capcut.com") ||
                                 mahmud.includes("bsky.app")
                         ) {
-                                api.setMessageReaction("🐤", event.messageID, (err) => {}, true);
+                                api.setMessageReaction("🐤", event.messageID, () => {}, true);
 
                                 if (!fs.existsSync(__dirname + "/cache"))
                                         fs.mkdirSync(__dirname + "/cache");
@@ -86,7 +86,7 @@ module.exports = {
                                 );
 
                                 if (!response.data || !response.data.result)
-                                        throw new Error("Failed to video URL");
+                                        throw new Error("Failed to get video URL");
 
                                 const videoUrl = response.data.result;
 
@@ -98,7 +98,7 @@ module.exports = {
 
                                 fs.writeFileSync(path, Buffer.from(vid, "binary"));
 
-                                api.setMessageReaction("🪽", event.messageID, (err) => {}, true);
+                                api.setMessageReaction("🪽", event.messageID, () => {}, true);
 
                                 api.sendMessage(
                                         {
@@ -106,12 +106,15 @@ module.exports = {
                                                 attachment: fs.createReadStream(path)
                                         },
                                         event.threadID,
-                                        () => fs.unlinkSync(path),
+                                        () => {
+                                                if (fs.existsSync(path))
+                                                        fs.unlinkSync(path);
+                                        },
                                         event.messageID
                                 );
                         }
                 } catch (e) {
-                        api.setMessageReaction("❎", event.messageID, (err) => {}, true);
+                        api.setMessageReaction("❎", event.messageID, () => {}, true);
                 }
         }
 };
