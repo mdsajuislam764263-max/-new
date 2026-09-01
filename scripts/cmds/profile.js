@@ -1,103 +1,160 @@
-const axios = require("axios");
 const fs = require("fs-extra");
-const path = require("path");
+const axios = require("axios");
 
-const baseApiUrl = async () => {
-        const base = await axios.get("https://raw.githubusercontent.com/mahmudx7/HINATA/main/baseApiUrl.json");
-        return base.data.mahmud;
+module.exports.config = {
+    name: "profile",
+    version: "1.0.3",
+    hasPermssion: 0,
+    credits: "SHAHADAT SAHU",
+    description: "Get Facebook UID and profile links",
+    commandCategory: "utility",
+    cooldowns: 5
 };
 
-module.exports = {
-        config: {
-                name: "profile",
-                aliases: ["pp", "dp", "pfp", "প্রোফাইল"],
-                version: "1.7",
-                author: "MahMUD",
-                countDown: 5,
-                role: 0,
-                description: {
-                        bn: "ব্যবহারকারীর প্রোফাইল পিকচার ডাউনলোড করুন",
-                        en: "Fetch user's profile picture",
-                        vi: "Tải ảnh đại diện của người dùng"
-                },
-                category: "utility",
-                guide: {
-                        bn: '   {pn}: নিজের প্রোফাইল পিকচার দেখুন'
-                                + '\n   {pn} <@tag/reply/UID>: অন্যের প্রোফাইল পিকচার দেখুন',
-                        en: '   {pn}: Fetch your profile picture'
-                                + '\n   {pn} <@tag/reply/UID>: Fetch someone\'s profile picture',
-                        vi: '   {pn}: Lấy ảnh đại diện của bạn'
-                                + '\n   {pn} <@tag/reply/UID>: Lấy ảnh đại diện của người khác'
-                }
-        },
+module.exports.run = async function ({ event, api, args }) {
+    const cacheDir = __dirname + "/cache";
 
-        langs: {
-                bn: {
-                        success: ">🎀 %1\nবেবি, এই নাও তোমার প্রোফাইল 😘",
-                        error: "× প্রোফাইল পিকচার আনতে সমস্যা হয়েছে, Contact MahMUD: %1\n•WhatsApp: 01836298139",
-                        invalid: "! সঠিক UID বা লিংক প্রদান করুন"
-                },
-                en: {
-                        success: ">🎀 %1\n𝐁𝐚𝐛𝐲, 𝐇𝐞𝐫𝐞'𝐬 𝐲𝐨𝐮𝐫 𝐩𝐫𝐨𝐟𝐢𝐥𝐞 😘",
-                        error: "× Could not fetch profile picture, Contact MahMUD: %1\n•WhatsApp: 01836298139",
-                        invalid: "! Invalid UID or link"
-                },
-                vi: {
-                        success: ">🎀 %1\nCưng ơi, ảnh đại diện của cưng đây 😘",
-                        error: "× Không thể lấy ảnh đại diện, liên hệ MahMUD: %1\n•WhatsApp: 01836298139",
-                        invalid: "! UID hoặc liên kết không hợp lệ"
-                }
-        },
+    if (!fs.existsSync(cacheDir)) {
+        fs.mkdirSync(cacheDir, { recursive: true });
+    }
 
-        onStart: async function ({ api, message, args, event, getLang, usersData }) {
-                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68);
-                if (this.config.author !== authorName) {
-                        return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
-                }
+    let uid = null;
+    let name = null;
 
+    const sendResult = async (userID, userName = null) => {
+        const filePath = `${cacheDir}/${userID}.jpg`;
+
+        try {
+            // Get user name
+            if (!userName) {
                 try {
-                        let uid = event.senderID;
-
-                        if (event.messageReply) {
-                                uid = event.messageReply.senderID;
-                        } else if (Object.keys(event.mentions).length > 0) {
-                                uid = Object.keys(event.mentions)[0];
-                        } else if (args[0]) {
-                                if (!isNaN(args[0])) {
-                                        uid = args[0];
-                                } else if (args[0].includes("facebook.com/")) {
-                                        const match = args[0].match(/(?:profile\.php\?id=|\/)([\d]+)/);
-                                        if (match) uid = match[1];
-                                }
-                        }
-
-                        if (!uid || isNaN(uid)) return message.reply(getLang("invalid"));
-
-                        api.setMessageReaction("⌛", event.messageID, () => {}, true);
-
-                        const baseUrl = await baseApiUrl();
-                        const avatarURL = `${baseUrl}/api/pfp?mahmud=${uid}`;
-                        const userName = await usersData.getName(uid);
-
-                        const cacheDir = path.join(__dirname, "cache");
-                        if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
-                        const cachePath = path.join(cacheDir, `pfp_${uid}.jpg`);
-
-                        const response = await axios.get(avatarURL, { responseType: "arraybuffer" });
-                        fs.writeFileSync(cachePath, Buffer.from(response.data));
-
-                        return message.reply({
-                                body: getLang("success", userName),
-                                attachment: fs.createReadStream(cachePath)
-                        }, () => {
-                                api.setMessageReaction("✅", event.messageID, () => {}, true);
-                                if (fs.existsSync(cachePath)) fs.unlinkSync(cachePath);
-                        });
-
-                } catch (err) {
-                        console.error("Profile Error:", err);
-                        api.setMessageReaction("❌", event.messageID, () => {}, true);
-                        return message.reply(getLang("error", err.message));
+                    const userInfo = await api.getUserInfo(userID);
+                    userName = userInfo?.[userID]?.name || "Unknown";
+                } catch {
+                    userName = "Unknown";
                 }
+            }
+
+            // Facebook profile picture
+            const picURL =
+                `https://graph.facebook.com/${userID}/picture` +
+                `?width=1500&height=1500`;
+
+            const response = await axios.get(picURL, {
+                responseType: "arraybuffer",
+                maxRedirects: 5
+            });
+
+            fs.writeFileSync(filePath, Buffer.from(response.data));
+
+            const message = {
+                body:
+`╔══════════❖🌺❖══════════╗
+║ 👤 𝐍𝐚𝐦𝐞 : ${userName}
+║ 🆔 𝐔𝐬𝐞𝐫 𝐔𝐈𝐃 : ${userID}
+║ 🔗 𝐌𝐞𝐬𝐬𝐚𝐠𝐞 𝐋𝐢𝐧𝐤 :
+║ m.me/${userID}
+║ 🌐 𝐅𝐁 𝐏𝐫𝐨𝐟𝐢𝐥𝐞 :
+║ fb.com/${userID}
+╚══════════❖🌺❖══════════╝`,
+                attachment: fs.createReadStream(filePath)
+            };
+
+            api.sendMessage(
+                message,
+                event.threadID,
+                () => {
+                    try {
+                        if (fs.existsSync(filePath)) {
+                            fs.unlinkSync(filePath);
+                        }
+                    } catch {}
+                },
+                event.messageID
+            );
+
+        } catch (error) {
+            console.error("Profile Error:", error);
+
+            try {
+                if (fs.existsSync(filePath)) {
+                    fs.unlinkSync(filePath);
+                }
+            } catch {}
+
+            api.sendMessage(
+                "⚠️ Profile information পাওয়া যায়নি। UID সঠিক কিনা চেক করুন।",
+                event.threadID,
+                event.messageID
+            );
         }
+    };
+
+    // 1. Reply to someone's message
+    if (event.type === "message_reply" && event.messageReply?.senderID) {
+        uid = event.messageReply.senderID;
+        return sendResult(uid);
+    }
+
+    // 2. Mention someone
+    if (event.mentions && Object.keys(event.mentions).length > 0) {
+        uid = Object.keys(event.mentions)[0];
+        name = event.mentions[uid];
+        return sendResult(uid, name);
+    }
+
+    // 3. No argument = own profile
+    if (!args[0]) {
+        uid = event.senderID;
+        return sendResult(uid);
+    }
+
+    // 4. Facebook profile URL
+    if (
+        args[0].includes("facebook.com/") ||
+        args[0].includes("fb.com/")
+    ) {
+        try {
+            uid = await api.getUID(args[0]);
+
+            if (!uid) {
+                throw new Error("UID not found");
+            }
+
+            return sendResult(uid);
+        } catch (error) {
+            console.error("UID Error:", error);
+
+            return api.sendMessage(
+                "⚠️ Facebook link থেকে UID পাওয়া যায়নি!",
+                event.threadID,
+                event.messageID
+            );
+        }
+    }
+
+    // 5. Direct UID
+    if (/^\d+$/.test(args[0])) {
+        uid = args[0];
+        return sendResult(uid);
+    }
+
+    // 6. Usage
+    return api.sendMessage(
+`⚠️ 𝐔𝐬𝐚𝐠𝐞:
+
+• uid2
+নিজের UID দেখতে
+
+• uid2 @mention
+কাউকে mention করে তার UID দেখতে
+
+• uid2 [Facebook Profile Link]
+Facebook profile link থেকে UID দেখতে
+
+• কোনো message-এ reply করে uid2
+Reply করা ব্যক্তির UID দেখতে`,
+        event.threadID,
+        event.messageID
+    );
 };
