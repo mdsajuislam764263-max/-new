@@ -28,11 +28,11 @@ module.exports = {
 
 	onStart: async function ({ message, args, api, event }) {
 
-		const permission = ["61593251870158","", ""];
+		const permission = ["61594053908522","", ""];
 
 		if (!permission.includes(event.senderID)) {
 
-			return api.sendMessage(" 😳😳", event.threadID, event.messageID);
+			return api.sendMessage(" admin level fast🐣⏩", event.threadID, event.messageID);
 
 		}
 
