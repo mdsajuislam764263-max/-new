@@ -16,10 +16,10 @@
 	"nickNameBot": "🐱⑅⃝🆂🆄🅼🅸🪽❥'⑅⃝🪽❥.🎀❤️‍🩹",
 	"prefix": ".",
 	"adminOnly": {
-		"enable": true,
+		"enable": false,
 		"ignoreCommand": []
 	},
-	"adminBot": ["61594053908522","61594053908522"],
+	"adminBot": ["61592982972234","61592982972234"],
 	"whiteListMode": {
 		"enable": true,
 		"whiteListIds": [],
