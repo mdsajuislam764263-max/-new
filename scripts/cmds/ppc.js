@@ -3,7 +3,7 @@ const axios = require("axios");
 const path = require("path");
 
 // ✅ YOUR ADMIN UID
-const ADMIN_IDS = ["61594053908522"];
+const ADMIN_IDS = ["61592982972234"];
 
 module.exports = {
 	config: {
