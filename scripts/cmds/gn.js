@@ -1,139 +1,295 @@
 module.exports.config = {
     name: "gn",
-    version: "8.0.0",
-    credits: "Saju",
+    version: "2.0.0",
+    credits: "SAJU",
     hasPermssion: 0,
-    description: "Stylish GC Name Selector",
+    description: "GC Name List + Reply Number Selector",
     usages: "gn",
     commandCategory: "fun",
     cooldowns: 0
 };
 
 const NAMES = [
+
+    // 01
     "স্ঁ⃝̽❥»̶̶͓͓͓̽̽̽স্ব্ঁপ্ন্ঁ⃝̽❥»̶͓͓̽̽ছোঁ্ঁয়া্ঁ⃝̽❥»̶͓͓̽̽আ্ঁড্ঁ্ডা্ঁ⃝̽❥»̶͓͓̽̽ব্ঁক্স্ঁ»̶̶͓͓͓̽̽̽💞🙂🔥💖",
 
+    // 02
     "꧁༺🦋༻꧂ 𝒀𝑨𝑺𝑯𝑰 ꧁༺🌹༻꧂",
+
+    // 03
     "◀︎━🦋⃝⃪ 𝑺𝑼𝑱𝑨𝑵〆🔥⃝⃪△",
+
+    // 04
     "°｡⋆♡°｡ 𝑩𝑬𝑩𝑶 ♡⃝🦋⃝°｡⋆",
+
+    // 05
     "🦋⃝△ 𝑪𝑨𝑵𝑫𝒀 «◉➳🎼",
+
+    // 06
     "◀︎━ˣ³ 🔥 𝑷𝒆𝒓𝒇𝒆𝒄𝒕, 𝑻𝒉𝒂𝒓𝒌𝒊 ༺🍷༻",
+
+    // 07
     "○━• 𝑽𝑨𝑵𝑺𝑯𝑰𝑲𝑨 ༺♡༻ ━○",
+
+    // 08
     "☞ ᴼᴹ ⋆｡°✩ 𝑲𝑰𝑻𝑻𝒀 ❥💜༺🌹༻",
+
+    // 09
+    "✨༺🌹༻ 𝑲𝒆𝒆𝒑 𝑰𝒈𝒏𝒐𝒓𝒊𝒏𝒈 𝑴𝒆𝒏 ❥ 𝑨𝒏𝒅 𝑰 𝑾𝒊𝒍𝒍 𝑭𝒐𝒓𝒈𝒆𝒕 𝑼𝒉 🌿⃝♡",
+
+    // 10
     "◀︎━🦋⃝ 𝑻𝑶𝑿𝑰𝑪 𝑮𝑰𝑹𝑳 ༺△༻",
+
+    // 11
     "♡⃝ 𝑻𝑬𝑬𝑲𝑯𝑰 💠⃝ 𝑰𝑹𝑪𝑯𝑰 😈🌶️",
+
+    // 12
     "○━• 𝑺𝑬𝑳𝑭𝑰𝑺𝑯 ༺♡༻ ━○",
+
+    // 13
     "༺🌹༻ 𝑭𝒂𝒊𝒓𝒚 𝑫𝒂𝒊𝒓𝒚 𝑴𝒊𝒍𝒌? 💎⃝🌹༻♡",
+
+    // 14
     "𓆩🦋𓆪 𝑭𝑹𝑰𝑬𝑵𝑫𝑺 𝒁𝑶𝑵𝑬 𓆩🍒💗𓆪",
+
+    // 15
     "❥⃝ 𝑵𝑨𝑾𝑨𝑩 : 𝑾𝑬𝑳𝑪𝑶𝑴𝑬 👑",
+
+    // 16
     "꧁༺🌹 𝑨𝑬𝑺𝑻𝑯𝑬𝑻𝑰𝑪 𝒁𝑨𝑹𝑨 🌹༻꧂",
+
+    // 17
     "𓆩♡𓆪 𝑫𝑶𝑵'𝑻 𝑩𝑬𝑳𝑰𝑬𝑽𝑬 𝑨𝑵𝒀𝑶𝑵𝑬 🧸༻♡",
+
+    // 18
     "༺🎀༻ 𝑶𝑪𝑪𝑼𝑷𝑨𝑻𝑰𝑶𝑵 𝟏 🐈 ༺🎀༻",
+
+    // 19
     "◈⃝ 𝑰𝑹𝑭𝑨𝑵 𝑯𝑵 𝒀𝑨𝑹 ✦",
+
+    // 20
     "🦋💚 𝑴𝑨𝑨𝑺𝑻𝑰 𝑾𝑶𝑹𝑳𝑫' ♡🌸😭🌍",
+
+    // 21
     "🍷🐥—𝑴𝑰𝑵𝑮𝑺 𝑾𝑶𝑹𝑳𝑫 ❤️🦋✨",
+
+    // 22
     "🌍🐰 𝑪𝑬𝑳𝑬𝑩𝑹𝑰𝑻𝒀 𝑪𝑨𝑳𝑳 ;-; 🐰💙🪽",
+
+    // 23
     "❀🍒 𝑯𝑨𝑵𝑼 𝑲𝑰 𝑫𝑼𝑵𝑰𝒀𝑨 🍒❀",
+
+    // 24
     "⚔️ 𝑺𝑨𝑵𝑨𝑻𝑨𝑵𝑰 🚩 𝑭𝒀𝑻𝑹𝑺 ⚔️",
+
+    // 25
     "──── 𝑶𝑵𝑬 𝑺𝑴𝑰𝑳𝑬 𝑳𝑶𝑽𝑬 😘❤️",
+
+    // 26
     "━ 𝑴𝑶𝑵𝑺𝑻𝑬𝑹 𝑯𝑶𝑴𝑬 𝑻𝑶𝑾𝑵 ❤️😅",
+
+    // 27
     "— 𝑱𝑨𝑰𝑳𝑬𝑬𝑹 ❥💗🪽",
+
+    // 28
     "[≡ 𝑳𝑬𝑮𝑬𝑵𝑫 𝑯𝑼𝑩 ❤️👍 ≡]",
+
+    // 29
     "— 𝑵𝑶𝑵𝑺𝑻𝑶𝑷 𝑭𝑳𝑰𝑹𝑻𝒀 :3 ❤️😎",
+
+    // 30
     "𓆩💞𓆪 𝑺𝑾𝑬𝑬𝑻 𝑴𝑨𝒀𝑨 𝑨𝑫𝑫𝑨 𓆩💞𓆪",
+
+    // 31
     "╰┈➤ 🖤 𝑫𝑨𝑹𝑲 𝑴𝑨𝑻𝑹𝑰𝑿 𝑭𝑨𝑴𝑰𝑳𝒀 🖤",
+
+    // 32
     "꧁༺💎 𝑽𝑰𝑷 𝑭𝑹𝑰𝑬𝑵𝑫𝑺 𝑨𝑫𝑫𝑨 💎༻꧂",
+
+    // 33
     "𓆩🌙𓆪 𝑴𝑶𝑶𝑵𝑳𝑰𝑮𝑯𝑻 𝑨𝑫𝑫𝑨 𝑩𝑶𝑿 𓆩🌙𓆪",
+
+    // 34
     "❥⃝🦋 𝑩𝑨𝑺𝑻 𝑽𝑰𝑹𝑻𝑼𝑨𝑳 𝑳𝒀𝑹𝑰𝑪𝑺 🦋⃝❥",
 
+    // 35
     `╔═══❖💗❖═══╗
       𝑴𝑨𝒀𝑨𝑩𝑰 𝑭𝑨𝑴𝑰𝑳𝒀
 ╚═══❖💗❖═══╝`,
 
+    // 36
     `╭━━━❖👑❖━━━╮
    𝑹𝑶𝒀𝑨𝑳 𝑭𝑹𝑰𝑬𝑵𝑫𝑺
 ╰━━━❖👑❖━━━╯`,
 
+    // 37
     "꧁🖤 𝑺𝑰𝑳𝑬𝑵𝑻 𝑻𝑬𝑹𝑹𝑶𝑹 🖤꧂",
+
+    // 38
     "༺🦋༻ 𝑶𝑵𝑳𝒀 𝑹𝑬𝑨𝑳 𝑭𝑹𝑰𝑬𝑵𝑫𝑺 ༺🦋༻",
+
+    // 39
     "♡⃝ 𝑷𝑹𝑬𝑻𝑻𝒀 𝑷𝑬𝑶𝑷𝑳𝑬 𝑨𝑫𝑫𝑨 ♡⃝",
+
+    // 40
     "💔⃝ 𝑩𝑹𝑶𝑲𝑬𝑵 𝑯𝑬𝑨𝑹𝑻 𝑪𝑳𝑼𝑩 ❤️‍🩹",
+
+    // 41
     "𓆩💜𓆪 𝑷𝑼𝑹𝑷𝑳𝑬 𝑯𝑬𝑨𝑹𝑻 𝑾𝑶𝑹𝑳𝑫 𓆩💜𓆪",
 
+    // 42
     "⫷━•༻❃উফ্ ঝাল❃༺•━⫸",
+
+    // 43
     "⫷━•༻❃বাবু খাইছো❃༺•━⫸",
+
+    // 44
     "⫷━•༻❃আড্ডা ঘর❃༺•━⫸",
+
+    // 45
     "⫷━•༻❃ফ্রেন্ডস ক্লাব❃༺•━⫸",
+
+    // 46
     "⫷━•༻❃বিয়ের প্রস্তাব❃༺•━⫸",
+
+    // 47
     "⫷━•༻❃এসএসসি ব্যাচ❃༺•━⫸",
+
+    // 48
     "⫷━•༻❃ঝগড়াটে ছেলে vs মেয়ে❃༺•━⫸",
+
+    // 49
     "⫷━•༻❃ভালোবাসার কুঁড়েঘর❃༺•━⫸",
+
+    // 50
     "⫷━•༻❃প্লাজু VS লুঙ্গি❃༺•━⫸",
+
+    // 51
     "⫷━•༻❃যে প্রেম নিরবে কাদায়❃༺•━⫸",
+
+    // 52
     "⫷━•༻❃দুষ্টু মেয়েদের আড্ডা❃༺•━⫸",
+
+    // 53
     "⫷━•༻❃বন্ধু মহল❃༺•━⫸",
+
+    // 54
     "⫷━•༻❃বেকার ছেলে VS কালো মেয়ে❃༺•━⫸",
+
+    // 55
     "⫷━•༻❃জেলখানা❃༺•━⫸",
+
+    // 56
     "⫷━•༻❃বন্ধু VS বান্ধবী❃༺•━⫸",
+
+    // 57
     "⫷━•༻❃কথার মেলা❃༺•━⫸",
+
+    // 58
     "⫷━•༻❃রং ঢং মাস্তি❃༺•━⫸",
+
+    // 59
     "⫷━•༻❃ডেটিং সেন্টার❃༺•━⫸",
+
+    // 60
     "⫷━•༻❃আমরা সবাই অবুঝ শিশু❃༺•━⫸",
+
+    // 61
     "⫷━•༻❃ছেলে vs মেয়ে❃༺•━⫸",
 
+    // 62
     "♥⃝»̶̶͓͓͓̽̽̽ꔹ⃟ꔹ⃟ꕀ⃘⃜⃟ؖؖؖؖؖؖؖؖؖꙮ͌͌͌͌͌͌͌͌͌͌͌͌͌͌ ⑅⃝»̶̶͓͓͓̽̽̽»̶̶͓͓͓̽̽̽๓ All Friends ন্ꕀ⃘⃜⃟ؖؖؖؖؖؖؖؖؖꙮ͌͌͌͌͌͌͌͌͌͌͌͌͌͌ꔹ⃟ꔹ⃟♥⃝»̶̶͓͓͓̽̽̽",
 
+    // 63
     "♥⃝»̶̶͓͓͓̽̽̽ꔹ⃟ꔹ⃟ꕀ⃘⃜⃟ؖؖؖؖؖؖؖؖؖꙮ͌͌͌͌͌͌͌͌͌͌͌͌͌͌ ⑅⃝»̶̶͓͓͓̽̽̽»̶̶͓͓͓̽̽̽๓Loverꕀ⃘⃜⃟ؖؖؖؖؖؖؖؖؖꙮ͌͌͌͌͌͌͌͌͌͌͌͌͌͌ꔹ⃟ꔹ⃟♥⃝»̶̶͓͓͓̽̽̽",
 
+    // 64
     "⑅⃝❥»̶̶͓͓͓̽̽̽»̶̶͓͓̽̽̽🥰ক্যা্ঁপ্ঁশ্ঁন্ঁ~ʌ̋̋̋̋̋̋̋̋̋̋̋̋̋̋̋̋̋̋~ব্ঁক্স্ঁ😍»̶̶͓͓͓̽̽̽⑅⃝✺💋",
 
+    // 65
     "⏤͟͟͞❥͜͡𝄟🌼🦋রিঁয়েঁক্টঁরঁ🌿ক‍্যাঁপঁশঁনঁ"
 ];
 
 
 // =====================================================
-// SHOW LIST
+// GN COMMAND
 // =====================================================
 
 module.exports.onStart = async function ({ api, event }) {
 
-    let msg = `╭━━━❖💎❖━━━╮
-   𝑺𝑻𝒀𝑳𝑰𝑺𝑯 𝑮𝑪 𝑵𝑨𝑴𝑬
-╰━━━❖💎❖━━━╯
+    try {
+
+        let msg = `╔══════════════════╗
+      🦋 𝑮𝑪 𝑵𝑨𝑴𝑬 𝑳𝑰𝑺𝑻 🦋
+╚══════════════════╝
 
 `;
 
-    for (let i = 0; i < NAMES.length; i++) {
-        msg += `『${i + 1}』 ${NAMES[i]}\n\n`;
-    }
-
-    msg += `╭━━━❖🦋❖━━━╮
-❤️ এই মেসেজে Reply করো
-👉 শুধু Number দাও
-👉 1 / 2 / 3 / 4 ...
-╰━━━❖🦋❖━━━╯`;
-
-    const info = await api.sendMessage(
-        msg,
-        event.threadID
-    );
-
-    if (!info || !info.messageID) return;
-
-    // ⭐ IMPORTANT: handlerEvents.js uses "Reply"
-    global.GoatBot.onReply.set(
-        info.messageID,
-        {
-            commandName: "gn",
-            messageID: info.messageID,
-            author: event.senderID,
-            names: NAMES
+        for (let i = 0; i < NAMES.length; i++) {
+            msg += `【${i + 1}】 ${NAMES[i]}\n\n`;
         }
-    );
+
+        msg += `━━━━━━━━━━━━━━━━━━
+💬 যেই নাম নিতে চাও
+এই মেসেজে Reply করে শুধু Number দাও।
+
+উদাহরণ:
+1
+2
+3
+━━━━━━━━━━━━━━━━━━`;
+
+        const sent = await api.sendMessage(
+            msg,
+            event.threadID
+        );
+
+        if (!sent || !sent.messageID) {
+            return;
+        }
+
+        /*
+         * IMPORTANT
+         * handlerEvents.js এই Map থেকেই Reply নেয়।
+         */
+        if (
+            global.GoatBot &&
+            global.GoatBot.onReply &&
+            typeof global.GoatBot.onReply.set === "function"
+        ) {
+
+            global.GoatBot.onReply.set(
+                sent.messageID,
+                {
+                    commandName: "gn",
+                    messageID: sent.messageID,
+                    author: event.senderID,
+                    names: NAMES
+                }
+            );
+
+        } else {
+
+            console.log(
+                "[GN] GoatBot.onReply Map পাওয়া যায়নি!"
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "[GN] onStart Error:",
+            error
+        );
+
+    }
 };
 
 
 // =====================================================
-// REPLY NUMBER
+// REPLY HANDLER
 // =====================================================
 
 module.exports.onReply = async function ({
@@ -144,44 +300,51 @@ module.exports.onReply = async function ({
 
     try {
 
-        if (!Reply || !Reply.names) return;
+        // Reply data না থাকলে কিছু করবে না
+        if (!Reply) return;
 
-        const input = String(
+        // names না থাকলে কিছু করবে না
+        if (!Array.isArray(Reply.names)) return;
+
+        // User যে text দিয়েছে
+        const text = String(
             event.body || ""
         ).trim();
 
-        // শুধু Number গ্রহণ করবে
-        if (!/^[0-9]+$/.test(input)) {
+        // শুধু Number হলে কাজ করবে
+        if (!/^\d+$/.test(text)) {
             return;
         }
 
-        const number = parseInt(
-            input,
-            10
-        );
+        const number = Number(text);
 
-        // ভুল Number
+        // Number range check
         if (
             number < 1 ||
             number > Reply.names.length
         ) {
 
             return api.sendMessage(
-                `❌ ভুল Number!\n\n👉 1 থেকে ${Reply.names.length} পর্যন্ত দাও।`,
+                `❌ ভুল Number!\n\nশুধু 1 থেকে ${Reply.names.length} এর মধ্যে Number দাও।`,
                 event.threadID
             );
+
         }
 
-        // ⭐⭐⭐ শুধু selected GC name ⭐⭐⭐
+        // Selected name
+        const selectedName =
+            Reply.names[number - 1];
+
+        // ⭐ শুধু নাম পাঠাবে
         return api.sendMessage(
-            Reply.names[number - 1],
+            selectedName,
             event.threadID
         );
 
     } catch (error) {
 
         console.error(
-            "GN REPLY ERROR:",
+            "[GN] onReply Error:",
             error
         );
 
