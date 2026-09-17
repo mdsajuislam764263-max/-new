@@ -1,6 +1,6 @@
 module.exports.config = {
     name: "gn",
-    version: "7.0.0",
+    version: "8.0.0",
     credits: "Saju",
     hasPermssion: 0,
     description: "Stylish GC Name Selector",
@@ -90,65 +90,11 @@ const NAMES = [
 ];
 
 
-// ======================================================
-// REPLY DATA
-// ======================================================
-
-if (!global.gnReplyData) {
-    global.gnReplyData = new Map();
-}
-
-
-// ======================================================
-// GN COMMAND
-// ======================================================
+// =====================================================
+// SHOW LIST
+// =====================================================
 
 module.exports.onStart = async function ({ api, event }) {
-
-    /*
-     * IMPORTANT:
-     * Reply system কাজ না করলেও এই অংশ number ধরবে।
-     */
-
-    if (event.messageReply && event.messageReply.messageID) {
-
-        const replyID = event.messageReply.messageID;
-
-        const saved = global.gnReplyData.get(replyID);
-
-        if (saved) {
-
-            const text = String(event.body || "").trim();
-
-            if (/^\d+$/.test(text)) {
-
-                const number = parseInt(text, 10);
-
-                if (number >= 1 && number <= saved.names.length) {
-
-                    // শুধু নাম পাঠাবে
-                    return api.sendMessage(
-                        saved.names[number - 1],
-                        event.threadID
-                    );
-
-                } else {
-
-                    return api.sendMessage(
-                        `❌ ভুল নাম্বার!\n১ থেকে ${saved.names.length} এর মধ্যে একটি Number দাও।`,
-                        event.threadID
-                    );
-                }
-            }
-
-            return;
-        }
-    }
-
-
-    // ==================================================
-    // SHOW ALL NAMES
-    // ==================================================
 
     let msg = `╭━━━❖💎❖━━━╮
    𝑺𝑻𝒀𝑳𝑰𝑺𝑯 𝑮𝑪 𝑵𝑨𝑴𝑬
@@ -156,100 +102,79 @@ module.exports.onStart = async function ({ api, event }) {
 
 `;
 
-    NAMES.forEach((name, index) => {
-        msg += `『${index + 1}』 ${name}\n\n`;
-    });
+    for (let i = 0; i < NAMES.length; i++) {
+        msg += `『${i + 1}』 ${NAMES[i]}\n\n`;
+    }
 
     msg += `╭━━━❖🦋❖━━━╮
-❤️ Reply এই মেসেজে শুধু Number দাও
+❤️ এই মেসেজে Reply করো
+👉 শুধু Number দাও
 👉 1 / 2 / 3 / 4 ...
 ╰━━━❖🦋❖━━━╯`;
-
 
     const info = await api.sendMessage(
         msg,
         event.threadID
     );
 
+    if (!info || !info.messageID) return;
 
-    // ==================================================
-    // SAVE MESSAGE ID
-    // ==================================================
-
-    if (info && info.messageID) {
-
-        global.gnReplyData.set(
-            info.messageID,
-            {
-                names: NAMES,
-                author: event.senderID,
-                threadID: event.threadID
-            }
-        );
-
-
-        // GoatBot built-in reply system
-        if (
-            global.GoatBot &&
-            global.GoatBot.onReply
-        ) {
-
-            global.GoatBot.onReply.set(
-                info.messageID,
-                {
-                    commandName: "gn",
-                    messageID: info.messageID,
-                    author: event.senderID,
-                    names: NAMES
-                }
-            );
+    // ⭐ IMPORTANT: handlerEvents.js uses "Reply"
+    global.GoatBot.onReply.set(
+        info.messageID,
+        {
+            commandName: "gn",
+            messageID: info.messageID,
+            author: event.senderID,
+            names: NAMES
         }
-    }
+    );
 };
 
 
-// ======================================================
-// GOATBOT REPLY SYSTEM
-// ======================================================
+// =====================================================
+// REPLY NUMBER
+// =====================================================
 
 module.exports.onReply = async function ({
     api,
     event,
-    handleReply
+    Reply
 }) {
 
     try {
 
-        if (!handleReply) return;
+        if (!Reply || !Reply.names) return;
 
-        if (!handleReply.names) return;
-
-        const text = String(
+        const input = String(
             event.body || ""
         ).trim();
 
-        if (!/^\d+$/.test(text)) return;
+        // শুধু Number গ্রহণ করবে
+        if (!/^[0-9]+$/.test(input)) {
+            return;
+        }
 
         const number = parseInt(
-            text,
+            input,
             10
         );
 
+        // ভুল Number
         if (
             number < 1 ||
-            number > handleReply.names.length
+            number > Reply.names.length
         ) {
 
             return api.sendMessage(
-                `❌ ভুল নাম্বার!\n১ থেকে ${handleReply.names.length} এর মধ্যে একটি Number দাও।`,
+                `❌ ভুল Number!\n\n👉 1 থেকে ${Reply.names.length} পর্যন্ত দাও।`,
                 event.threadID
             );
         }
 
-
-        // ⭐ শুধু নির্বাচিত নাম
+        // ⭐⭐⭐ শুধু selected GC name ⭐⭐⭐
         return api.sendMessage(
-            handleReply.names[number - 1],
+            Reply.names[number - 1],
             event.threadID
         );
 
@@ -259,5 +184,6 @@ module.exports.onReply = async function ({
             "GN REPLY ERROR:",
             error
         );
+
     }
 };
