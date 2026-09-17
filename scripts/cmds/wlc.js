@@ -129,7 +129,7 @@ async function createWelcomeCard(groupImg, userImg, adderImg, userName, memberCo
 }
 
 export default {
-  name: "welcome",
+  name: "wlc",
   version: "1.0.0",
   author: "Azadx69x",
   role: 0,
